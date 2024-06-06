@@ -12,10 +12,6 @@ declare global {
 
   interface Window {
     ethereum: Eip1193Provider;
-    wallet: {
-      provider: JsonRpcProvider | BrowserProvider;
-      signer: JsonRpcSigner | undefined;
-    };
   }
 }
 

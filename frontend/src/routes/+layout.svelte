@@ -1,11 +1,7 @@
 <script>
-  import { setContext } from 'svelte';
   import 'normalize.css';
   import '../styles.css';
   import Sidebar from 'components/Sidebar.svelte';
-
-  export let data;
-  setContext('wallet', data.wallet);
 </script>
 
 <div class="app">
