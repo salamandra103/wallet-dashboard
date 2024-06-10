@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@material-design-icons/svg": "^0.14.13",
 		"normalize.css": "^8.0.1"
 	}
 }

@@ -35,7 +35,13 @@ module.exports = {
       {
         endOfLine: 'auto'
       }
-    ]
+    ],
     // indent: ["error", 2]
+    'svelte/valid-compile': [
+      'error',
+      {
+        ignoreWarnings: true
+      }
+    ]
   }
 };
