@@ -29,7 +29,8 @@ module.exports = {
     }
   ],
   rules: {
-    // "no-console": 2 // Remember, this means error!
+    '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/no-explicit-any': 0,
     'prettier/prettier': [
       'error',
       {
@@ -42,6 +43,8 @@ module.exports = {
       {
         ignoreWarnings: true
       }
-    ]
+    ],
+    'no-console': 0,
+    'no-debugger': 0
   }
 };

@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { providers, currentProvider, connectBrowserProvider } from '../../store/wallet';
+  import { providers, currentProvider } from 'store/wallet';
+  import { connectBrowserProvider } from 'utils/wallet';
+  import type { EIP6963ProviderDetail } from 'interfaces/EIP6963';
+
+  function _connectBrowserProvider(providerDetail: EIP6963ProviderDetail) {
+    connectBrowserProvider(providerDetail);
+    currentProvider.set(providerDetail);
+  }
 </script>
 
 <section class="wallet">
@@ -13,7 +20,7 @@
   {#if $providers.length}
     <div class="wallet__connect-buttons">
       {#each $providers as item}
-        <button class="wallet__connect-button" on:click={() => connectBrowserProvider(item)}>
+        <button class="wallet__connect-button" on:click={() => _connectBrowserProvider(item)}>
           <img class="wallet__connect-button-icon" src={item.info.icon} alt={item.info.name} />
           <span class="wallet__connect-button-title"> {item.info.name}</span>
         </button>

@@ -1,31 +1,33 @@
 <script>
   import { page } from '$app/stores';
-  import OutlinedHomeIcon from '@material-design-icons/svg/outlined/home.svg?raw';
+  import HomeIcon from '@material-design-icons/svg/outlined/home.svg?raw';
+  import AccountBalanceWalletIcon from '@material-design-icons/svg/outlined/account_balance_wallet.svg?raw';
+  import SettingsIcon from '@material-design-icons/svg/outlined/settings.svg?raw';
+  import InfoIcon from '@material-design-icons/svg/outlined/info.svg?raw';
   import Icon from 'components/Icon.svelte';
 </script>
 
 <nav>
   <ul>
     <li>
-      <a href="/" class:active={$page.route.id === '/'}
-        ><span class="material-symbols-outlined"> <Icon icon={OutlinedHomeIcon} /></span></a
-      >
-      <Icon icon={OutlinedHomeIcon} --color="#fff" />
+      <a href="/" class:active={$page.route.id === '/'}>
+        <Icon icon={HomeIcon} color="#fff" />
+      </a>
     </li>
     <li>
-      <a href="/wallet" class:active={$page.route.id === '/wallet'}
-        ><span class="material-symbols-outlined">account_balance_wallet</span></a
-      >
+      <a href="/wallet" class:active={$page.route.id === '/wallet'}>
+        <Icon icon={AccountBalanceWalletIcon} color="#fff" />
+      </a>
     </li>
     <li>
-      <a href="/settings" class:active={$page.route.id === '/settings'}
-        ><span class="material-symbols-outlined">settings</span></a
-      >
+      <a href="/settings" class:active={$page.route.id === '/settings'}>
+        <Icon icon={SettingsIcon} color="#fff" />
+      </a>
     </li>
     <li>
-      <a href="/info" class:active={$page.route.id === '/info'}
-        ><span class="material-symbols-outlined">info</span></a
-      >
+      <a href="/info" class:active={$page.route.id === '/info'}>
+        <Icon icon={InfoIcon} color="#fff" />
+      </a>
     </li>
   </ul>
 </nav>

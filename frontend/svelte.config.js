@@ -14,7 +14,11 @@ const config = {
     adapter: adapter(),
     alias: {
       components: 'src/components',
-      routes: 'src/routes'
+      routes: 'src/routes',
+      utils: 'src/utils',
+      api: 'src/api',
+      store: 'src/store',
+      interfaces: 'src/interfaces'
     }
   }
 };

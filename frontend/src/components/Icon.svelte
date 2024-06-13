@@ -25,9 +25,9 @@
     });
 
     if (template.name === 'svg') {
-      currentNode.setAttribute('fill', color);
-      currentNode.setAttribute('width', width);
-      currentNode.setAttribute('height', height);
+      currentNode.setAttribute('fill', color || currentNode.getAttribute('fill') || '');
+      currentNode.setAttribute('width', width || currentNode.getAttribute('width') || '');
+      currentNode.setAttribute('height', height || currentNode.getAttribute('height') || '');
     }
 
     template.children?.forEach((child) => {
