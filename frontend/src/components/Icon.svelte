@@ -11,6 +11,7 @@
   export let color: string = '';
   export let width: string = '';
   export let height: string = '';
+  export let className: string = '';
 
   let parseIcon: Ast = parse(icon);
   function generateSvg(template: TemplateNode): HTMLElement {
@@ -28,27 +29,22 @@
       currentNode.setAttribute('fill', color || currentNode.getAttribute('fill') || '');
       currentNode.setAttribute('width', width || currentNode.getAttribute('width') || '');
       currentNode.setAttribute('height', height || currentNode.getAttribute('height') || '');
+      currentNode.setAttribute('class', className || currentNode.getAttribute('className') || '');
     }
 
     template.children?.forEach((child) => {
-      let childNode = document.createElement(child.name) as HTMLElement;
       let childAttributes = child.attributes as Array<ChildrenAttribute>;
       childAttributes?.forEach((childrenAttribute) => {
-        childNode.setAttribute(childrenAttribute.name, childrenAttribute.value[0].data);
+        if (childrenAttribute.name === 'stroke' || childrenAttribute.name === 'fill') {
+          childrenAttribute.value[0].data = color;
+        }
       });
       currentNode.appendChild(generateSvg(child));
     });
 
     return currentNode;
   }
-
-  // <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m12 5.69 5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
 </script>
-
-<!-- <i data-type="icon"> -->
-<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-<!-- {@html icon} -->
-<!-- </i> -->
 
 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
 {@html generateSvg(parseIcon.html).innerHTML}

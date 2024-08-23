@@ -7,9 +7,7 @@
 
   onMount(async () => {
     // const fiat = await getFiatMap();
-    const tokens = await getTokenMap();
-    // console.log(fiat);
-    console.log(tokens);
+    // const tokens = await getTokenMap();
   });
 </script>
 

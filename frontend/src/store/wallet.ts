@@ -6,7 +6,6 @@ export const providers = writable<EIP6963ProviderDetail[]>([]);
 export const currentProvider = writable<EIP6963ProviderDetail>();
 
 currentProvider.subscribe((providerDetail) => {
-  console.log(providerDetail);
   if (providerDetail) {
     const activeProvider = createProvider();
     activeProvider.on('accountsChanged', (accounts: any) => {
