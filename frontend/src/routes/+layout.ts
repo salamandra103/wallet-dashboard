@@ -1,26 +1,33 @@
-import { providers } from 'store/wallet';
+
+import { wallets } from 'store/wallet';
+
 import type { EIP6963AnnounceProviderEvent } from 'interfaces/EIP6963';
+
+import { getProvider } from 'utils/wallet'
 
 export const prerender = false;
 export const ssr = false;
 
 function onAnnounce(event: EIP6963AnnounceProviderEvent) {
-  providers.update((value) => {
+  const browserProvider = getProvider();
+  wallets.update((value) => {
     return [
       ...value,
       {
-        ...event.detail,
-        isActive: false
+        meta: {
+          ...event.detail.info,
+          isActive: false,
+          isProgress: false
+        },
+        baseProvider: event.detail.provider,
+        provider: browserProvider,
+        isBrowser: true,
       }
     ];
   });
-
-  // event.detail.provider.on('connect', (info) => {});
-  // event.detail.provider.on('disconnect', (info) => {});
-  // event.detail.provider.on('chainChanged', () => {});
 }
 
 export async function load() {
-  window.addEventListener('eip6963:announceProvider', onAnnounce);
+  window.addEventListener('eip6963:announceProvider', onAnnounce); // Инициализация браузерных кошельков
   window.dispatchEvent(new Event('eip6963:requestProvider'));
 }

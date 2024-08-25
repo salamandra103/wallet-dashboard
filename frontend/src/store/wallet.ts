@@ -1,19 +1,71 @@
 import { writable } from 'svelte/store';
-import type { EIP6963ProviderDetail } from 'interfaces/EIP6963';
-import { createProvider } from 'utils/wallet';
+import type { Wallet, Provider } from 'interfaces/Wallet';
 
-export const providers = writable<EIP6963ProviderDetail[]>([]);
-export const currentProvider = writable<EIP6963ProviderDetail>();
+export const wallets = writable<Wallet[]>([]);
 
-currentProvider.subscribe((providerDetail) => {
-  if (providerDetail) {
-    const activeProvider = createProvider();
-    activeProvider.on('accountsChanged', (accounts: any) => {
-      debugger;
+wallets.subscribe((prevWallets) => {
+  prevWallets.forEach(wallet => {
+    wallet.baseProvider.on('connect', (connectInfo) => {
     });
-    activeProvider.on('connect', (info: any) => {
-      debugger;
+    wallet.baseProvider.on('disconnect', (error) => {
     });
-    console.log(activeProvider);
-  }
+    wallet.baseProvider.on('chainChanged', (chainId) => {
+    });
+    wallet.baseProvider.on('accountsChanged', (accounts) => {
+    });
+    wallet.baseProvider.on('message', (message) => {
+    });
+  })
 });
+
+export async function connectWallet(
+  provider: Provider
+): Promise<string | null> {
+  let address: string | null = null;
+  try {
+    wallets.update((prevWallets) => {
+      prevWallets.forEach(wallet => {
+        wallet.meta.isProgress = true;
+        wallet.meta.isActive = false;
+      })
+
+      return prevWallets
+    })
+
+    let signer = await provider.getSigner();
+    address = await signer.getAddress()
+
+    wallets.update((prevWallets) => {
+      let activeWallet = prevWallets.find(wallet => wallet.provider === provider)
+
+      if (!activeWallet) {
+        return prevWallets;
+      }
+
+      prevWallets.forEach(wallet => {
+        if (wallet === activeWallet) {
+          wallet.meta.isActive = true;
+        }
+        wallet.meta.isProgress = false
+      })
+
+
+      prevWallets.reduce((acc, wallet) => {
+        if (wallet.provider === provider) {
+          activeWallet = wallet;
+        }
+        return acc
+      }, prevWallets);
+
+
+      return prevWallets
+    });
+
+  } catch (error) {
+    console.error('Failed to connect to provider:', error);
+  }
+  localStorage.setItem('wallet.connected', 'true');
+  return address;
+};
+
+

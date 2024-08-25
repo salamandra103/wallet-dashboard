@@ -34,7 +34,7 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        endOfLine: 'auto'
+        endOfLine: 'off'
       }
     ],
     // indent: ["error", 2]

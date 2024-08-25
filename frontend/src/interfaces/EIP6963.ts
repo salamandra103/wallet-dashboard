@@ -1,4 +1,4 @@
-import type { Eip1193Provider as EIP1193Provider } from 'ethers';
+import type { EIP1193Provider } from 'interfaces/EIP1193';
 
 export interface EIP6963ProviderInfo {
   uuid: string;

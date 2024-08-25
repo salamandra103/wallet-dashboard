@@ -1,4 +1,3 @@
-import { Eip1193Provider } from 'ethers';
 declare global {
   namespace App {
     // interface Error {}
@@ -9,8 +8,8 @@ declare global {
   }
 
   interface Window {
-    ethereum: Eip1193Provider;
+    ethereum: any;
   }
 }
 
-export {};
+export { };
