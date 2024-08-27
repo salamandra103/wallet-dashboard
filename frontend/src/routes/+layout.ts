@@ -1,9 +1,8 @@
-
 import { wallets } from 'store/wallet';
 
 import type { EIP6963AnnounceProviderEvent } from 'interfaces/EIP6963';
 
-import { getProvider } from 'utils/wallet'
+import { getProvider } from 'utils/wallet';
 
 export const prerender = false;
 export const ssr = false;
@@ -17,11 +16,12 @@ function onAnnounce(event: EIP6963AnnounceProviderEvent) {
         meta: {
           ...event.detail.info,
           isActive: false,
-          isProgress: false
+          isInProgress: false,
+          isDisabled: false
         },
         baseProvider: event.detail.provider,
         provider: browserProvider,
-        isBrowser: true,
+        isBrowser: true
       }
     ];
   });

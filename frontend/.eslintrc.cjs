@@ -34,10 +34,10 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        endOfLine: 'off'
+        endOfLine: 'auto'
       }
     ],
-    // indent: ["error", 2]
+    indent: ['error', 2],
     'svelte/valid-compile': [
       'error',
       {

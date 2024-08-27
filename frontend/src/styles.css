@@ -11,6 +11,7 @@
     --bg-100:#1A1F2B;
     --bg-200:#292e3b;
     --bg-300:#414654;
+    --success: #3fff19;
 }
 
 body {
@@ -50,5 +51,11 @@ ul, ol {
     list-style-type: none;
 }
 
+svg path{
+    fill: currentColor;
+}
 
-
+svg circle{
+    stroke: currentColor;
+    fill: currentColor;
+}

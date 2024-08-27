@@ -1,32 +1,32 @@
 <script>
   import { page } from '$app/stores';
-  import HomeIcon from '@material-design-icons/svg/outlined/home.svg?raw';
-  import AccountBalanceWalletIcon from '@material-design-icons/svg/outlined/account_balance_wallet.svg?raw';
-  import SettingsIcon from '@material-design-icons/svg/outlined/settings.svg?raw';
-  import InfoIcon from '@material-design-icons/svg/outlined/info.svg?raw';
-  import Icon from 'components/Icon.svelte';
+
+  import HomeIcon from '@material-design-icons/svg/outlined/home.svg';
+  import AccountBalanceWalletIcon from '@material-design-icons/svg/outlined/account_balance_wallet.svg';
+  import SettingsIcon from '@material-design-icons/svg/outlined/settings.svg';
+  import InfoIcon from '@material-design-icons/svg/outlined/info.svg';
 </script>
 
 <nav>
   <ul>
     <li>
       <a href="/" class:active={$page.route.id === '/'}>
-        <Icon icon={HomeIcon} color="#fff" />
+        <HomeIcon color="#fff" />
       </a>
     </li>
     <li>
       <a href="/wallet" class:active={$page.route.id === '/wallet'}>
-        <Icon icon={AccountBalanceWalletIcon} color="#fff" />
+        <AccountBalanceWalletIcon color="#fff" />
       </a>
     </li>
     <li>
       <a href="/settings" class:active={$page.route.id === '/settings'}>
-        <Icon icon={SettingsIcon} color="#fff" />
+        <SettingsIcon color="#fff" />
       </a>
     </li>
     <li>
       <a href="/info" class:active={$page.route.id === '/info'}>
-        <Icon icon={InfoIcon} color="#fff" />
+        <InfoIcon color="#fff" />
       </a>
     </li>
   </ul>
