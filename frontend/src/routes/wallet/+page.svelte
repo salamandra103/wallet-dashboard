@@ -1,18 +1,11 @@
 <script lang="ts">
-  import cx from 'classnames';
-
-  import DoneIcon from '@material-design-icons/svg/outlined/done.svg';
-  import LoaderIcon from '$lib/icons/loader.svg';
-
+  import CheckIcon from 'svelte-material-icons/Check.svelte';
+  import Icon from 'components/Icon.svelte';
   import { wallets, connectWallet } from 'store/wallet';
   import type { Wallet } from 'interfaces/Wallet';
 
-  export let isLoading: boolean = false;
-
   async function _connectWallet(wallet: Wallet) {
-    isLoading = true;
     let address = await connectWallet(wallet.baseProvider, wallet.provider);
-    isLoading = false;
   }
 </script>
 
@@ -21,20 +14,15 @@
     <div class="wallet__connect-buttons">
       {#each $wallets as item}
         <button
-          class={cx('wallet__connect-button', {
-            'wallet__connect-button--progress': item.meta.isInProgress,
-            'wallet__connect-button--active': item.meta.isActive
-          })}
-          on:click={() => _connectWallet(item)}
+          class="wallet__connect-button"
+          class:wallet__connect-button--progress={item.meta.isInProgress}
+          class:wallet__connect-button--success={item.meta.isActive}
+          on:click={() => {
+            _connectWallet(item);
+          }}
           disabled={item.meta.isDisabled}
         >
           <div class="wallet__connect-button-wrapper">
-            {#if item.meta.isActive}
-              <DoneIcon
-                fill="green"
-                className="wallet__connect-button-icon wallet__connect-button-icon--check"
-              />
-            {/if}
             <img class="wallet__connect-button-icon" src={item.meta.icon} alt={item.meta.name} />
             <span class="wallet__connect-button-title"> {item.meta.name}</span>
           </div>
@@ -71,6 +59,13 @@
         &:before {
           animation: loadingButtonAnimation 2500ms infinite ease-in-out;
         }
+      }
+
+      &--success {
+        border-color: var(--success);
+        cursor: default;
+        background-color: var(--bg-200);
+        pointer-events: none;
       }
 
       &:hover {
@@ -130,6 +125,9 @@
       &:disabled {
         cursor: default;
         background-color: var(--bg-200);
+        background-color: var(--bg-300);
+
+        pointer-events: none;
 
         &:after {
           visibility: visible;
@@ -139,30 +137,28 @@
           opacity: 0.6;
         }
       }
-
-      &-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 3;
-      }
-
-      &-icon {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-
-        &--check {
-          margin-right: 10px;
-        }
-      }
-
-      &-title {
-        color: var(--text-200);
-        letter-spacing: 1px;
-        font-size: 16px;
-      }
     }
+
+    &__connect-button-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    &__connect-button-title {
+      color: var(--text-200);
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+
+    &__connect-button-icon {
+      margin-right: 10px;
+    }
+  }
+
+  .wallet :global(.wallet__connect-button-icon--check) {
+    margin-right: 15px;
   }
 </style>

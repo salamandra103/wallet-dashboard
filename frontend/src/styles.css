@@ -50,12 +50,3 @@ a:hover {
 ul, ol {
     list-style-type: none;
 }
-
-svg path{
-    fill: currentColor;
-}
-
-svg circle{
-    stroke: currentColor;
-    fill: currentColor;
-}

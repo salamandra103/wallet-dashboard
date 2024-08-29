@@ -29,7 +29,7 @@ export async function connectWallet(
   baseProvider: EIP1193Provider,
   provider?: Provider
 ): Promise<string | null> {
-  const address: string | null = null;
+  let address: string | null = null;
   try {
     wallets.update((prevWallets) => {
       prevWallets.forEach((wallet) => {
@@ -45,14 +45,24 @@ export async function connectWallet(
       return prevWallets;
     });
 
-    await baseProvider.request({ method: 'eth_requestAccounts' }).catch((err: ProviderRpcError) => {
-      console.error(err);
+    address = await baseProvider
+      .request({ method: 'eth_requestAccounts' })
+      .then((res) => {
+        return res[0] as string;
+      })
+      .catch((err: ProviderRpcError) => {
+        console.error(err);
 
-      if (err.code === 4001) {
-        resetWalletsMeta();
-        return;
-      }
-    });
+        if (err.code === 4001) {
+          resetWalletsMeta();
+        }
+
+        return null;
+      });
+
+    if (!address) {
+      return null;
+    }
 
     // if (provider) {
     //   const signer = await provider.getSigner();
@@ -71,6 +81,7 @@ export async function connectWallet(
           wallet.meta.isActive = true;
         }
         wallet.meta.isInProgress = false;
+        wallet.meta.isDisabled = false;
       });
 
       prevWallets.reduce((acc, wallet) => {

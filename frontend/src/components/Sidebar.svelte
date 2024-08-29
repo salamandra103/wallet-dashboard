@@ -1,32 +1,33 @@
 <script>
   import { page } from '$app/stores';
 
-  import HomeIcon from '@material-design-icons/svg/outlined/home.svg';
-  import AccountBalanceWalletIcon from '@material-design-icons/svg/outlined/account_balance_wallet.svg';
-  import SettingsIcon from '@material-design-icons/svg/outlined/settings.svg';
-  import InfoIcon from '@material-design-icons/svg/outlined/info.svg';
+  import HomeIcon from 'svelte-material-icons/Home.svelte';
+  import WalletIcon from 'svelte-material-icons/Wallet.svelte';
+  import CogIcon from 'svelte-material-icons/Cog.svelte';
+  import InformationOutlineIcon from 'svelte-material-icons/InformationOutline.svelte';
+  import Icon from 'components/Icon.svelte';
 </script>
 
 <nav>
   <ul>
     <li>
       <a href="/" class:active={$page.route.id === '/'}>
-        <HomeIcon color="#fff" />
+        <Icon color="#ffffff" size="32" component={HomeIcon} />
       </a>
     </li>
     <li>
       <a href="/wallet" class:active={$page.route.id === '/wallet'}>
-        <AccountBalanceWalletIcon color="#fff" />
+        <Icon color="#ffffff" size="32" component={WalletIcon} />
       </a>
     </li>
     <li>
       <a href="/settings" class:active={$page.route.id === '/settings'}>
-        <SettingsIcon color="#fff" />
+        <Icon color="#ffffff" size="32" component={CogIcon} />
       </a>
     </li>
     <li>
       <a href="/info" class:active={$page.route.id === '/info'}>
-        <InfoIcon color="#fff" />
+        <Icon color="#ffffff" size="32" component={InformationOutlineIcon} />
       </a>
     </li>
   </ul>
